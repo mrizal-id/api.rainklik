@@ -32,7 +32,7 @@
                         <!-- Post -->
                         <article class="pb-5 pt-sm-1 mb-lg-3 mb-xl-4">
                             <a href="{{ route('blogs.show', $post->slug) }}">
-                                <img class="rounded-5" src="{{ Storage::url($post->cover) }}" alt="Image">
+                                <img class="rounded-5" src="{{ asset('assets/' . $post->cover) }}" alt="Image">
                             </a>
                             <h2 class="h3 pt-3 mt-2 mt-md-3">
                                 <a href="{{ route('blogs.show', $post->slug) }}">{{ $post->title }}</a>

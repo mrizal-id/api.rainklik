@@ -185,7 +185,7 @@
                     <div class="swiper-slide" role="group" aria-label="3 / 3"
                         style="width: 384px; margin-right: 24px;">
                         <div class="position-relative">
-                            <img class="rounded-1" src="{{ $post->cover_url }}" alt="Post image">
+                            <img class="rounded-1" src="{{ asset('assets/' . $post->cover) }}" alt="Post image">
                             <div class="pt-3 mt-3">
                                 <h3 class="h4 mb-3">
                                     <a class="stretched-link"

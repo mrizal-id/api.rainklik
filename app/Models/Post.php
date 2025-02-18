@@ -38,9 +38,4 @@ class Post extends Model
             $post->slug = Str::slug($post->title);
         });
     }
-
-    public function getCoverUrlAttribute()
-    {
-        return url('storage/' . $this->cover);
-    }
 }
