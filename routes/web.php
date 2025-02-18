@@ -14,10 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    // Cek apakah aplikasi berjalan di lingkungan lokal
     if (app()->environment('local')) {
-        return view('welcome'); // Jika lokal, tampilkan halaman welcome
+        return view('welcome');
     } else {
-        return redirect('https://rainklik.com', 301); // Jika produksi, redirect ke URL lain
+        return redirect('https://rainklik.com', 301);
     }
 });
