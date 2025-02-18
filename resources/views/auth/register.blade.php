@@ -1,146 +1,91 @@
 @extends('layouts.auth')
 @section('content')
     <div class="w-100 mt-auto" style="max-width: 526px;">
-        <h1>No account? Sign up</h1>
-        <p class="pb-3 mb-3 mb-lg-4">Have an account already?&nbsp;&nbsp;<a href="{{ route('login') }}">Sign in
-                here!</a>
-        </p>
-        <form class="needs-validation" novalidate="">
-            <div class="row row-cols-1 row-cols-sm-2">
-                <div class="col mb-4">
-                    <input class="form-control form-control-lg" type="text" placeholder="Your name" required="">
-                </div>
-                <div class="col mb-4">
-                    <input class="form-control form-control-lg" type="email" placeholder="Email address" required="">
-                </div>
-            </div>
-            <div class="password-toggle mb-4">
-                <input class="form-control form-control-lg" type="password" placeholder="Password" required="">
-                <label class="password-toggle-btn" aria-label="Show/hide password">
-                    <input class="password-toggle-check" type="checkbox">
-                    <span class="password-toggle-indicator"></span>
-                </label>
-            </div>
-            <div class="password-toggle mb-4">
-                <input class="form-control form-control-lg" type="password" placeholder="Confirm password" required="">
-                <label class="password-toggle-btn" aria-label="Show/hide password">
-                    <input class="password-toggle-check" type="checkbox">
-                    <span class="password-toggle-indicator"></span>
-                </label>
-            </div>
-            <div class="pb-4">
-                <div class="form-check my-2">
-                    <input class="form-check-input" type="checkbox" id="terms">
-                    <label class="form-check-label ms-1" for="terms">I agree to <a href="#">Terms &amp;
-                            Conditions</a></label>
-                </div>
-            </div>
-            <button class="btn btn-lg btn-primary w-100 mb-4" type="submit">Sign up</button>
+        <h1>Belum punya akun?<br> Daftar</h1>
+        <p class="pb-3 mb-3 mb-lg-4">Sudah punya akun?&nbsp;&nbsp;<a href="{{ route('login') }}">Masuk di sini!</a></p>
 
-            <!-- Sign in with social account -->
-            <h2 class="h6 text-center pt-3 pt-lg-4 mb-4">Or sign in with your social account</h2>
-            <div class="row row-cols-1 row-cols-sm-2 gy-3">
-                <div class="col">
-                    <a class="btn btn-icon btn-outline-secondary btn-google btn-lg w-100" href="#">
-                        <i class="ai-google fs-xl me-2"></i>
-                        Google
-                    </a>
-                </div>
-                <div class="col">
-                    <a class="btn btn-icon btn-outline-secondary btn-facebook btn-lg w-100" href="#">
-                        <i class="ai-facebook fs-xl me-2"></i>
-                        Facebook
-                    </a>
+        <form method="POST" action="{{ route('register') }}" class="needs-validation" novalidate>
+            @csrf
+
+            <div class="pb-3 mb-3">
+                <div class="position-relative">
+                    <i class="ai-user fs-lg position-absolute top-50 start-0 translate-middle-y ms-3"></i>
+                    <input type="text" name="name" placeholder="Masukkan nama" value="{{ old('name') }}"
+                        class="form-control form-control-lg ps-5 @error('name') is-invalid @enderror" required>
+                    @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
             </div>
+
+            <div class="pb-3 mb-3">
+                <div class="position-relative">
+                    <i class="ai-mail fs-lg position-absolute top-50 start-0 translate-middle-y ms-3"></i>
+                    <input type="email" name="email" placeholder="Alamat email" value="{{ old('email') }}"
+                        class="form-control form-control-lg ps-5 @error('email') is-invalid @enderror" required>
+                    @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <div class="position-relative password-toggle">
+                    <i class="ai-lock-closed fs-lg position-absolute top-50 start-0 translate-middle-y ms-3"></i>
+                    <input class="form-control form-control-lg ps-5 @error('password') is-invalid @enderror" type="password"
+                        name="password" placeholder="Kata sandi" required>
+                    <label class="password-toggle-btn" aria-label="Tampilkan/sembunyikan kata sandi">
+                        <input class="password-toggle-check" type="checkbox">
+                        <span class="password-toggle-indicator"></span>
+                    </label>
+                    @error('password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <div class="position-relative password-toggle">
+                    <i class="ai-lock-closed fs-lg position-absolute top-50 start-0 translate-middle-y ms-3"></i>
+                    <input class="form-control form-control-lg ps-5 @error('password_confirmation') is-invalid @enderror"
+                        type="password" name="password_confirmation" placeholder="Konfirmasi kata sandi" required>
+                    <label class="password-toggle-btn" aria-label="Tampilkan/sembunyikan kata sandi">
+                        <input class="password-toggle-check" type="checkbox">
+                        <span class="password-toggle-indicator"></span>
+                    </label>
+                    @error('password_confirmation')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+
+            <button class="btn btn-lg btn-primary w-100 mb-4" type="submit">Buat Akun</button>
+
+            <h2 class="h6 text-center pt-3 pt-lg-4 mb-4">Atau daftar dengan akun sosial Anda</h2>
+
+            {{-- <div class="row row-cols-1 row-cols-sm-2 gy-3">
+            @foreach (['google', 'facebook'] as $provider)
+                <div class="col">
+                    <a href="{{ route('socialite.redirect', ['provider' => $provider]) }}"
+                        class="btn btn-icon btn-outline-secondary btn-{{ $provider }} btn-lg w-100">
+                        <i class="ai-{{ $provider }} fs-xl me-2"></i>
+                        {{ ucfirst($provider) }}
+                    </a>
+                </div>
+            @endforeach
+        </div> --}}
         </form>
     </div>
 @endsection
 
-{{-- <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-
-                        <div class="row mb-3">
-                            <label for="name"
-                                class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text"
-                                    class="form-control @error('name') is-invalid @enderror" name="name"
-                                    value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="email"
-                                class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email"
-                                    class="form-control @error('email') is-invalid @enderror" name="email"
-                                    value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password"
-                                class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password"
-                                    class="form-control @error('password') is-invalid @enderror" name="password"
-                                    required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password-confirm"
-                                class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control"
-                                    name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --}}
 @push('scripts')
     <script src="/js/main.js"></script>
 @endpush

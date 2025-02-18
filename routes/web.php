@@ -26,4 +26,6 @@ Route::get('/blog', [App\Http\Controllers\BlogController::class, 'index'])->name
 
 Auth::routes();
 
-Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+Route::get('/dashboard/profile', [App\Http\Controllers\UserController::class, 'edit'])->name('dashboard.profile.index');
+Route::put('/dashboard/profile', [App\Http\Controllers\UserController::class, 'update'])->name('dashboard.profile.update');

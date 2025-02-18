@@ -138,7 +138,7 @@
             </div>
             <!-- Cover image -->
             <div class="w-50 bg-size-cover bg-repeat-0 bg-position-center"
-                style="background-image: url(/images/cover.jpg);">
+                style="background-image: url(/images/cover.jpg);" loading="lazy">
             </div>
         </div>
     </main>

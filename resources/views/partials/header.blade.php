@@ -2,7 +2,7 @@
     <div class="container">
 
         <!-- Navbar brand (Logo) -->
-        <a class="navbar-brand pe-sm-3" href="/">
+        <a class="navbar-brand pe-sm-3" href="{{ url('/') }}">
             <span class="text-primary flex-shrink-0 me-2">
                 <svg width="35" height="32" viewBox="0 0 36 33" xmlns="http://www.w3.org/2000/svg">
                     <path fill="currentColor"
@@ -29,14 +29,60 @@
             <a class="nav-link fs-4 p-2 mx-sm-1" href="#searchModal" data-bs-toggle="modal" aria-label="Search">
                 <i class="ai-search"></i>
             </a>
-            <a class="nav-link fs-4 p-2 mx-sm-1 d-none d-sm-flex" href="{{ route('register') }}" aria-label="Account">
-                <i class="ai-user"></i>
-            </a>
+            @if (Auth::check())
+                <div class="dropdown nav d-none d-sm-block order-lg-3">
+                    <a class="nav-link d-flex align-items-center p-0" href="#" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <img class="border rounded-circle" src="/images/avatar.jpg" width="48"
+                            alt="{{ Auth::user()->first_name }} ">
+                        <div class="ps-2">
+                            <div class="fs-xs lh-1 opacity-60">Hello,</div>
+                            <div class="fs-sm dropdown-toggle">{{ Auth::user()->first_name }} </div>
+                        </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end my-1">
+                        <h6 class="dropdown-header fs-xs fw-medium text-body-secondary text-uppercase pb-1">Account</h6>
+                        <a class="dropdown-item" href="{{ route('dashboard') }}">
+                            <i class="ai-user-check fs-lg opacity-70 me-2"></i>
+                            Overview
+                        </a>
+                        <a class="dropdown-item" href="{{ route('dashboard.profile.index') }}">
+                            <i class="ai-settings fs-lg opacity-70 me-2"></i>
+                            Settings
+                        </a>
+
+                        <a class="dropdown-item" href="account-orders.html">
+                            <i class="ai-cart fs-lg opacity-70 me-2"></i>
+                            Orders
+                            <span class="badge bg-danger ms-auto">4</span>
+
+                        </a>
+                        <a class="dropdown-item" href="account-favorites.html">
+                            <i class="ai-heart fs-lg opacity-70 me-2"></i>
+                            Favorites
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="ai-logout fs-lg opacity-70 me-2"></i>
+                            Sign out
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </div>
+                </div>
+            @else
+                <a class="nav-link fs-4 p-2 mx-sm-1 d-none d-sm-flex" href="{{ route('login') }}" aria-label="Account">
+                    <i class="ai-user"></i>
+                </a>
+            @endif
+
             <a class="nav-link position-relative fs-4 p-2" href="#cartOffcanvas" data-bs-toggle="offcanvas"
                 aria-label="Shopping cart">
                 <i class="ai-cart"></i>
                 <span class="badge bg-primary fs-xs position-absolute end-0 top-0 me-n1"
-                    style="padding: .25rem .375rem;">3</span>
+                    style="padding: .25rem .375rem;" id="cart-count"></span>
             </a>
         </div>
 
@@ -50,17 +96,25 @@
         <nav class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav navbar-nav-scroll mx-auto" style="--ar-scroll-height: 520px;">
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active" href="#" data-bs-toggle="dropdown"
+                    <a class="nav-link dropdown-toggle active" href="/category" data-bs-toggle="dropdown"
                         aria-expanded="false">Category</a>
                     <div class="dropdown-menu overflow-hidden p-0">
                         <div class="d-lg-flex">
                             <div class="mega-dropdown-column pt-1 pt-lg-3 pb-lg-4">
                                 <ul class="list-unstyled mb-0">
                                     <li>
-                                        <a class="dropdown-item" href="index.html">Ibu & Anak</a>
+                                        <a class="dropdown-item" href="/category/ibu-dan-anak">Ibu & Anak</a>
                                         <span
                                             class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 rounded-3 rounded-start-0"
-                                            style="background-image: url(assets/img/megamenu/landings.jpg);"></span>
+                                            style="background-image: url(/images/no-image.jpg);"></span>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item" href="landing-marketing-agency.html">Marketing
+                                            Agency</a>
+                                        <span
+                                            class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0"
+                                            style="background-image: url(assets/img/megamenu/marketing-agency.jpg);"></span>
                                     </li>
                                 </ul>
                             </div>
@@ -74,15 +128,72 @@
                                             class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0"
                                             style="background-image: url(assets/img/megamenu/creative-agency.jpg);"></span>
                                     </li>
-
-
+                                    <li>
+                                        <a class="dropdown-item" href="landing-conference.html">Conference (Event)</a>
+                                        <span
+                                            class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0"
+                                            style="background-image: url(assets/img/megamenu/conference.jpg);"></span>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="landing-web-studio.html">Web Studio</a>
+                                        <span
+                                            class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0"
+                                            style="background-image: url(assets/img/megamenu/web-studio.jpg);"></span>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="landing-corporate.html">Corporate</a>
+                                        <span
+                                            class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0"
+                                            style="background-image: url(assets/img/megamenu/corporate.jpg);"></span>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="landing-insurance.html">
+                                            Insurance Company
+                                            <span class="text-danger fs-xs ms-2">New</span>
+                                        </a>
+                                        <span
+                                            class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0"
+                                            style="background-image: url(assets/img/megamenu/insurance.jpg);"></span>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="landing-business-consulting.html">Business
+                                            Consulting</a>
+                                        <span
+                                            class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0"
+                                            style="background-image: url(assets/img/megamenu/business-consulting.jpg);"></span>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="landing-coworking-space.html">Coworking
+                                            Space</a>
+                                        <span
+                                            class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0"
+                                            style="background-image: url(assets/img/megamenu/coworking.jpg);"></span>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="landing-yoga-studio.html">Yoga Studio</a>
+                                        <span
+                                            class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0"
+                                            style="background-image: url(assets/img/megamenu/yoga-studio.jpg);"></span>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="landing-influencer.html">Influencer</a>
+                                        <span
+                                            class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0"
+                                            style="background-image: url(assets/img/megamenu/influencer.jpg);"></span>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="landing-blog.html">Blog Homepage</a>
+                                        <span
+                                            class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 z-2 opacity-0"
+                                            style="background-image: url(assets/img/megamenu/blog-homepage.jpg);"></span>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="mega-dropdown-column position-relative border-start z-3"></div>
                         </div>
                     </div>
                 </li>
-
+                {{--
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
                         data-bs-auto-close="outside" aria-expanded="false">Pages</a>
@@ -190,23 +301,34 @@
                         <li><a class="dropdown-item" href="account-chat.html">Chat (Messages)</a></li>
                         <li><a class="dropdown-item" href="account-favorites.html">Favorites (Wishlist)</a></li>
                     </ul>
-                </li>
+                </li> --}}
 
                 <li class="nav-item">
-                    <a class="nav-link" href="/blog">Blog</a>
+                    <a class="nav-link" href="{{ url('/blog') }}">Blog</a>
                 </li>
-                <li class="nav-item border-top mt-2 py-2 d-sm-none">
-                    <a class="nav-link" href="account-signin.html">
-                        <i class="ai-user fs-lg me-2"></i>
-                        Sign In
-                    </a>
-                </li>
+
+
             </ul>
             <div class="d-md-none p-3 mt-n3">
-                <a class="btn btn-primary w-100 mb-1" href="/login" target="_blank" rel="noopener">
-                    <i class="ai-user fs-xl me-2 ms-n1"></i>
-                    Register
-                </a>
+                @if (Auth::check())
+                    <!-- Jika pengguna sudah login -->
+                    <a class="btn btn-danger w-100 mb-1" href="{{ route('logout') }}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="ai-logout fs-xl me-2 ms-n1"></i>
+                        Logout
+                    </a>
+                    <!-- Form logout yang tersembunyi -->
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                @else
+                    <!-- Jika pengguna belum login -->
+                    <a class="btn btn-primary w-100 mb-1" href="{{ route('login') }}" target="_blank"
+                        rel="noopener">
+                        <i class="ai-login fs-xl me-2 ms-n1"></i>
+                        Sign In
+                    </a>
+                @endif
             </div>
         </nav>
     </div>

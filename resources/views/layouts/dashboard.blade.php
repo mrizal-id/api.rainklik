@@ -366,12 +366,15 @@
     </div>
 
 
-    <main id="app" class="page-wrapper">
+    <main id="app" class="bg-secondary">
         <!-- Header-->
         @include('partials.header')
-        @yield('content')
-        <!-- Benefit -->
-        @include('partials.benefit')
+        <div class="container py-5 mt-4 mt-lg-5 mb-lg-4 my-xl-5">
+            <div class="row pt-sm-2 pt-lg-0">
+                @include('dashboard.sidebar')
+                @yield('content')
+            </div>
+        </div>
         <!-- Footer-->
         @include('partials.footer')
     </main>
