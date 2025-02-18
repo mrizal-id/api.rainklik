@@ -29,7 +29,7 @@
             <a class="nav-link fs-4 p-2 mx-sm-1" href="#searchModal" data-bs-toggle="modal" aria-label="Search">
                 <i class="ai-search"></i>
             </a>
-            <a class="nav-link fs-4 p-2 mx-sm-1 d-none d-sm-flex" href="account-signin.html" aria-label="Account">
+            <a class="nav-link fs-4 p-2 mx-sm-1 d-none d-sm-flex" href="{{ route('register') }}" aria-label="Account">
                 <i class="ai-user"></i>
             </a>
             <a class="nav-link position-relative fs-4 p-2" href="#cartOffcanvas" data-bs-toggle="offcanvas"
@@ -51,13 +51,13 @@
             <ul class="navbar-nav navbar-nav-scroll mx-auto" style="--ar-scroll-height: 520px;">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle active" href="#" data-bs-toggle="dropdown"
-                        aria-expanded="false">Landings</a>
+                        aria-expanded="false">Category</a>
                     <div class="dropdown-menu overflow-hidden p-0">
                         <div class="d-lg-flex">
                             <div class="mega-dropdown-column pt-1 pt-lg-3 pb-lg-4">
                                 <ul class="list-unstyled mb-0">
                                     <li>
-                                        <a class="dropdown-item" href="index.html">Category</a>
+                                        <a class="dropdown-item" href="index.html">Ibu & Anak</a>
                                         <span
                                             class="mega-dropdown-column position-absolute top-0 end-0 h-100 bg-size-cover bg-repeat-0 rounded-3 rounded-start-0"
                                             style="background-image: url(assets/img/megamenu/landings.jpg);"></span>

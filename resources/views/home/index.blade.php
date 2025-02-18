@@ -151,9 +151,88 @@
             <div id="jarallax-container-0" class="jarallax-container"
                 style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; overflow: hidden; z-index: -100; clip-path: polygon(0px 0px, 100% 0px, 100% 100%, 0px 100%);">
                 <div class="jarallax-img"
-                    style="background-image: url(&quot;assets/img/landing/shop-1/hero/bg.jpg&quot;); object-fit: cover; object-position: 50% 50%; max-width: none; position: fixed; top: 0px; left: 0px; width: 1109px; height: 1003px; overflow: hidden; pointer-events: none; transform-style: preserve-3d; backface-visibility: hidden; margin-top: 0px; transform: translate3d(0px, 0px, 0px); opacity: 1;"
-                    data-jarallax-original-styles="background-image: url(assets/img/landing/shop-1/hero/bg.jpg);"></div>
+                    style="background-image: url(/images/bg.jpg); object-fit: cover; object-position: 50% 50%; max-width: none; position: fixed; top: 0px; left: 0px; width: 1109px; height: 1003px; overflow: hidden; pointer-events: none; transform-style: preserve-3d; backface-visibility: hidden; margin-top: 0px; transform: translate3d(0px, 0px, 0px); opacity: 1;"
+                    data-jarallax-original-styles="background-image: url(/images/bg.jpg);"></div>
             </div>
         </div>
+    </section>
+    <!-- Blog -->
+    <section class="container pb-5 mb-lg-3 mb-xl-4 mb-xxl-5">
+        <h2 class="h1 pb-3 pb-md-4">Our blog</h2>
+        <div class="swiper swiper-initialized swiper-horizontal swiper-backface-hidden"
+            data-swiper-options="{
+          &quot;slidesPerView&quot;: 1,
+          &quot;spaceBetween&quot;: 24,
+          &quot;pagination&quot;: {
+            &quot;el&quot;: &quot;.swiper-pagination&quot;,
+            &quot;clickable&quot;: true
+          },
+          &quot;breakpoints&quot;: {
+            &quot;500&quot;: {
+              &quot;slidesPerView&quot;: 2
+            },
+            &quot;991&quot;: {
+              &quot;slidesPerView&quot;: 3
+            }
+          }
+        }">
+            <div class="swiper-wrapper" id="swiper-wrapper-db1d0de936aa3242" aria-live="polite">
+
+                <!-- Item -->
+                <div class="swiper-slide swiper-slide-active" style="width: 384px; margin-right: 24px;" role="group"
+                    aria-label="1 / 3">
+                    <div class="position-relative">
+                        <img class="rounded-1" src="/images/no-image.jpg" alt="Post image">
+                        <div class="pt-3 mt-3">
+                            <h3 class="h4 mb-3">
+                                <a class="stretched-link" href="#">Paintings for home decor</a>
+                            </h3>
+                            <p class="mb-0">Morbi et massa fames ac scelerisque sit commodo dignissim faucibus vel
+                                quisque proin lectus laoreet sem adipiscing sollicitudin erat massa tellus lorem</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item -->
+                <div class="swiper-slide swiper-slide-next" style="width: 384px; margin-right: 24px;" role="group"
+                    aria-label="2 / 3">
+                    <div class="position-relative">
+                        <img class="rounded-1" src="/images/no-image.jpg" alt="Post image">
+                        <div class="pt-3 mt-3">
+                            <h3 class="h4 mb-3">
+                                <a class="stretched-link" href="#">How to keep flowers fresh longer</a>
+                            </h3>
+                            <p class="mb-0">Morbi et massa fames ac scelerisque sit commodo dignissim faucibus vel
+                                quisque proin lectus laoreet sem adipiscing sollicitudin erat massa tellus lorem</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item -->
+                <div class="swiper-slide" role="group" aria-label="3 / 3" style="width: 384px; margin-right: 24px;">
+                    <div class="position-relative">
+                        <img class="rounded-1" src="/images/no-image.jpg" alt="Post image">
+                        <div class="pt-3 mt-3">
+                            <h3 class="h4 mb-3">
+                                <a class="stretched-link" href="#">Bedroom decoration explained</a>
+                            </h3>
+                            <p class="mb-0">Morbi et massa fames ac scelerisque sit commodo dignissim faucibus vel
+                                quisque proin lectus laoreet sem adipiscing sollicitudin erat massa tellus lorem</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination (Bullets) -->
+            <div
+                class="swiper-pagination position-relative bottom-0 pt-1 mt-4 d-lg-none swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal">
+                <span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button"
+                    aria-label="Go to slide 1" aria-current="true"></span><span class="swiper-pagination-bullet"
+                    tabindex="0" role="button" aria-label="Go to slide 2"></span>
+            </div>
+            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+        </div>
+
+
     </section>
 @endsection
