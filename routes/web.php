@@ -13,4 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', 'https://rainklik.com', 301);
+Route::get('/', function () {
+    // Cek apakah aplikasi berjalan di lingkungan lokal
+    if (app()->environment('local')) {
+        return view('welcome'); // Jika lokal, tampilkan halaman welcome
+    } else {
+        return redirect('https://rainklik.com', 301); // Jika produksi, redirect ke URL lain
+    }
+});
