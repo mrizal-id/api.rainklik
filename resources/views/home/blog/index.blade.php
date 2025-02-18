@@ -28,35 +28,33 @@
 
                 <div class="masonry-grid mb-2 mb-md-4 pb-lg-3 shuffle" data-columns="2"
                     style="position: relative; height: 1401.97px; transition: height 250ms cubic-bezier(0.4, 0, 0.2, 1);">
-
-                    <!-- Post -->
-                    <article class="pb-5 pt-sm-1 mb-lg-3 mb-xl-4">
-                        <a href="blog-single-v1.html">
-                            <img class="rounded-5" src="/images/no-image.jpg" alt="Image">
-                        </a>
-                        <h2 class="h3 pt-3 mt-2 mt-md-3">
-                            <a href="blog-single-v1.html">The fashion for eco bags with vintage prints will still be
-                                relevant for more than one year</a>
-                        </h2>
-                        <p>Morbi et massa fames ac scelerisque sit commodo dignissim faucibus vel quisque proin lectus.
-                            Laoreet sem adipiscing sollicitudin erat massa tellus lorem enim aenean phasellus in
-                            hendrerit...</p>
-                        <div class="d-flex flex-wrap align-items-center pt-1 mt-n2">
-                            <a class="nav-link text-body-secondary fs-sm fw-normal p-0 mt-2 me-3" href="#">
-                                6
-                                <i class="ai-share fs-lg ms-1"></i>
+                    @foreach ($posts as $post)
+                        <!-- Post -->
+                        <article class="pb-5 pt-sm-1 mb-lg-3 mb-xl-4">
+                            <a href="{{ route('blogs.show', $post->slug) }}">
+                                <img class="rounded-5" src="{{ $post->cover_url }}" alt="Image">
                             </a>
-                            <a class="nav-link text-body-secondary fs-sm fw-normal d-flex align-items-end p-0 mt-2"
-                                href="#">
-                                12
-                                <i class="ai-message fs-lg ms-1"></i>
-                            </a>
-                            <span class="fs-xs opacity-20 mt-2 mx-3">|</span>
-                            <span class="fs-sm text-body-secondary mt-2">12 hours ago</span>
-                            <span class="fs-xs opacity-20 mt-2 mx-3">|</span>
-                            <a class="badge text-nav fs-xs border mt-2" href="#">Fashion</a>
-                        </div>
-                    </article>
+                            <h2 class="h3 pt-3 mt-2 mt-md-3">
+                                <a href="{{ route('blogs.show', $post->slug) }}">{{ $post->title }}</a>
+                            </h2>
+                            <p>{{ $post->content }}</p>
+                            <div class="d-flex flex-wrap align-items-center pt-1 mt-n2">
+                                <a class="nav-link text-body-secondary fs-sm fw-normal p-0 mt-2 me-3" href="#">
+                                    6
+                                    <i class="ai-share fs-lg ms-1"></i>
+                                </a>
+                                <a class="nav-link text-body-secondary fs-sm fw-normal d-flex align-items-end p-0 mt-2"
+                                    href="#">
+                                    12
+                                    <i class="ai-message fs-lg ms-1"></i>
+                                </a>
+                                <span class="fs-xs opacity-20 mt-2 mx-3">|</span>
+                                <span class="fs-sm text-body-secondary mt-2">12 hours ago</span>
+                                <span class="fs-xs opacity-20 mt-2 mx-3">|</span>
+                                <a class="badge text-nav fs-xs border mt-2" href="#">Fashion</a>
+                            </div>
+                        </article>
+                    @endforeach
 
                 </div>
 

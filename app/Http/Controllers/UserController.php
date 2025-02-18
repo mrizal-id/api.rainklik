@@ -75,15 +75,15 @@ class UserController extends Controller
     {
         // Validate the incoming data
         $validatedData = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            // 'last_name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $id,
-            'phone' => 'nullable|string|max:15',
-            'country' => 'required|string|max:255',
-            'city' => 'required|string|max:255',
-            'state' => 'required|string|max:255',
-            'postal_code' => 'required|string|max:10',
-            'address' => 'required|string|max:255',
+            // 'phone' => 'nullable|string|max:15',
+            // 'country' => 'required|string|max:255',
+            // 'city' => 'required|string|max:255',
+            // 'state' => 'required|string|max:255',
+            // 'postal_code' => 'required|string|max:10',
+            // 'address' => 'required|string|max:255',
         ]);
 
         // Find the user by ID
@@ -91,24 +91,24 @@ class UserController extends Controller
 
         if (!$user) {
             // If the user is not found, redirect with an error
-            return redirect()->route('dashboard.user.edit', $id)->withErrors(['error' => 'User not found.']);
+            return redirect()->route('dashboard', $id)->withErrors(['error' => 'User not found.']);
         }
 
         // Update the user's details
-        $user->first_name = $validatedData['first_name'];
-        $user->last_name = $validatedData['last_name'];
-        $user->email = $validatedData['email'];
-        $user->phone = $validatedData['phone'];
-        $user->country = $validatedData['country'];
-        $user->city = $validatedData['city'];
-        $user->state = $validatedData['state'];
-        $user->postal_code = $validatedData['postal_code'];
-        $user->address = $validatedData['address'];
+        $user->name = $validatedData['name'];
+        // $user->last_name = $validatedData['last_name'];
+        // $user->email = $validatedData['email'];
+        // $user->phone = $validatedData['phone'];
+        // $user->country = $validatedData['country'];
+        // $user->city = $validatedData['city'];
+        // $user->state = $validatedData['state'];
+        // $user->postal_code = $validatedData['postal_code'];
+        // $user->address = $validatedData['address'];
 
         // Save the updated user
         $user->save();
 
-        return redirect()->route('dashboard.user.edit', $id)->with('success', 'Profile updated successfully.');
+        return redirect()->route('dashboard.profile.edit', $id)->with('success', 'Profile updated successfully.');
     }
 
 

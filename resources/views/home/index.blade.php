@@ -156,6 +156,8 @@
             </div>
         </div>
     </section>
+
+
     <!-- Blog -->
     <section class="container pb-5 mb-lg-3 mb-xl-4 mb-xxl-5">
         <h2 class="h1 pb-3 pb-md-4">Our blog</h2>
@@ -178,50 +180,23 @@
         }">
             <div class="swiper-wrapper" id="swiper-wrapper-db1d0de936aa3242" aria-live="polite">
 
-                <!-- Item -->
-                <div class="swiper-slide swiper-slide-active" style="width: 384px; margin-right: 24px;" role="group"
-                    aria-label="1 / 3">
-                    <div class="position-relative">
-                        <img class="rounded-1" src="/images/no-image.jpg" alt="Post image">
-                        <div class="pt-3 mt-3">
-                            <h3 class="h4 mb-3">
-                                <a class="stretched-link" href="#">Paintings for home decor</a>
-                            </h3>
-                            <p class="mb-0">Morbi et massa fames ac scelerisque sit commodo dignissim faucibus vel
-                                quisque proin lectus laoreet sem adipiscing sollicitudin erat massa tellus lorem</p>
+                @foreach ($posts as $post)
+                    <!-- Item -->
+                    <div class="swiper-slide" role="group" aria-label="3 / 3"
+                        style="width: 384px; margin-right: 24px;">
+                        <div class="position-relative">
+                            <img class="rounded-1" src="{{ $post->cover_url }}" alt="Post image">
+                            <div class="pt-3 mt-3">
+                                <h3 class="h4 mb-3">
+                                    <a class="stretched-link"
+                                        href="{{ route('blogs.show', $post->slug) }}">{{ $post->title }}</a>
+                                </h3>
+                                <p class="mb-0">{{ $post->description }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Item -->
-                <div class="swiper-slide swiper-slide-next" style="width: 384px; margin-right: 24px;" role="group"
-                    aria-label="2 / 3">
-                    <div class="position-relative">
-                        <img class="rounded-1" src="/images/no-image.jpg" alt="Post image">
-                        <div class="pt-3 mt-3">
-                            <h3 class="h4 mb-3">
-                                <a class="stretched-link" href="#">How to keep flowers fresh longer</a>
-                            </h3>
-                            <p class="mb-0">Morbi et massa fames ac scelerisque sit commodo dignissim faucibus vel
-                                quisque proin lectus laoreet sem adipiscing sollicitudin erat massa tellus lorem</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Item -->
-                <div class="swiper-slide" role="group" aria-label="3 / 3" style="width: 384px; margin-right: 24px;">
-                    <div class="position-relative">
-                        <img class="rounded-1" src="/images/no-image.jpg" alt="Post image">
-                        <div class="pt-3 mt-3">
-                            <h3 class="h4 mb-3">
-                                <a class="stretched-link" href="#">Bedroom decoration explained</a>
-                            </h3>
-                            <p class="mb-0">Morbi et massa fames ac scelerisque sit commodo dignissim faucibus vel
-                                quisque proin lectus laoreet sem adipiscing sollicitudin erat massa tellus lorem</p>
-                        </div>
-                    </div>
-                </div>
             </div>
+            @endforeach
 
             <!-- Pagination (Bullets) -->
             <div
