@@ -14,9 +14,14 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
     public function index()
     {
-        $posts = Post::all();
-        return view('home.index', compact('posts'));
+        $posts = Post::latest()->take(5)->get(['title', 'cover', 'content', 'slug', 'created_at', 'category']);
+
+        $featured = $posts->first(); // Ambil post pertama sebagai featured
+        $recentPosts = $posts->skip(1); // Sisanya sebagai recent posts
+
+        return view('home.index', compact('featured', 'recentPosts'));
     }
 }

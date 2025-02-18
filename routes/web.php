@@ -30,7 +30,7 @@ Route::get('/blog/{slug}', [App\Http\Controllers\PostController::class, 'show'])
 Auth::routes();
 Route::middleware('auth')->group(function () {
 
-    Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/profile', [App\Http\Controllers\UserController::class, 'edit'])->name('dashboard.profile.index');
     Route::put('/dashboard/profile/{id}', [App\Http\Controllers\UserController::class, 'update'])->name('dashboard.profile.update');
 
@@ -42,15 +42,4 @@ Route::middleware('auth')->group(function () {
     // Route::get('/dashboard/post', [PostController::class, 'show'])->name('dashboard.posts.show');
     Route::get('/dashboard/post/{post}', [PostController::class, 'edit'])->name('dashboard.posts.edit');
     Route::put('/dashboard/post/{post}', [PostController::class, 'update'])->name('dashboard.posts.update');
-});
-
-
-//create symlink
-
-
-use Illuminate\Support\Facades\Artisan;
-
-Route::get('/storage-link', function () {
-    Artisan::call('storage:link');
-    return 'Symlink storage berhasil dibuat!';
 });

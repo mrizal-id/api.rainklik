@@ -389,11 +389,6 @@
     </a>
     @stack('scripts')
 
-    {{-- <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js"
-        integrity="sha512-/6TZODGjYL7M8qb7P6SflJB/nTGE79ed1RfJk3dfm/Ib6JwCT4+tOfrrseEHhxkIhwG8jCl+io6eaiWLS/UX1w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script> --}}
-
 </body>
 
 </html>

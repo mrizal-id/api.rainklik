@@ -157,57 +157,63 @@
         </div>
     </section>
 
+    <section class="container py-5 my-md-2 my-lg-3 my-xl-4 my-xxl-5">
+        <h2 class="h1 pb-3 py-md-4">Latest Posts</h2>
 
-    <!-- Blog -->
-    <section class="container pb-5 mb-lg-3 mb-xl-4 mb-xxl-5">
-        <h2 class="h1 pb-3 pb-md-4">Our blog</h2>
-        <div class="swiper swiper-initialized swiper-horizontal swiper-backface-hidden"
-            data-swiper-options="{
-          &quot;slidesPerView&quot;: 1,
-          &quot;spaceBetween&quot;: 24,
-          &quot;pagination&quot;: {
-            &quot;el&quot;: &quot;.swiper-pagination&quot;,
-            &quot;clickable&quot;: true
-          },
-          &quot;breakpoints&quot;: {
-            &quot;500&quot;: {
-              &quot;slidesPerView&quot;: 2
-            },
-            &quot;991&quot;: {
-              &quot;slidesPerView&quot;: 3
-            }
-          }
-        }">
-            <div class="swiper-wrapper" id="swiper-wrapper-db1d0de936aa3242" aria-live="polite">
-
-                @foreach ($posts as $post)
-                    <!-- Item -->
-                    <div class="swiper-slide" role="group" aria-label="3 / 3"
-                        style="width: 384px; margin-right: 24px;">
-                        <div class="position-relative">
-                            <img class="rounded-1" src="{{ asset('assets/' . $post->cover) }}" alt="Post image">
-                            <div class="pt-3 mt-3">
-                                <h3 class="h4 mb-3">
-                                    <a class="stretched-link"
-                                        href="{{ route('blogs.show', $post->slug) }}">{{ $post->title }}</a>
-                                </h3>
-                                <p class="mb-0">{{ $post->description }}</p>
+        <div class="row pb-md-4 pb-lg-5">
+            @if ($featured)
+                <!-- Featured article -->
+                <div class="col-lg-6 pb-2 pb-lg-0 mb-4 mb-lg-0">
+                    <article
+                        class="card h-100 border-0 position-relative overflow-hidden bg-size-cover bg-position-center me-lg-4"
+                        style="background-image: url({{ asset('assets/' . $featured->cover) }});">
+                        <div class="bg-dark position-absolute top-0 start-0 w-100 h-100 opacity-60"></div>
+                        <div class="card-body d-flex flex-column position-relative z-2 mt-sm-5">
+                            <h3 class="pt-5 mt-4 mt-sm-5 mt-lg-auto">
+                                <a class="stretched-link text-light" href="{{ route('blogs.show', $featured->slug) }}">
+                                    {{ $featured->title }}
+                                </a>
+                            </h3>
+                            <p class="card-text text-light opacity-70">{!! Str::limit($featured->content, 120) !!}</p>
+                            <div class="d-flex align-items-center">
+                                <span
+                                    class="fs-sm text-light opacity-50">{{ $featured->created_at->diffForHumans() }}</span>
+                                <span class="fs-xs text-light opacity-30 mx-3">|</span>
+                                <a class="badge text-light fs-xs border border-light" href="#">
+                                    {{ $featured->category }}
+                                </a>
                             </div>
                         </div>
+                    </article>
+                </div>
+            @endif
+
+            @if ($recentPosts->isNotEmpty())
+                <!-- Other articles -->
+                <div class="col-lg-6">
+                    <div class="row row-cols-1 row-cols-sm-2 g-4">
+                        @foreach ($recentPosts as $post)
+                            <article class="col py-1 py-xl-2">
+                                <div class="border-bottom pb-4 ms-xl-3">
+                                    <h3 class="h4">
+                                        <a href="{{ route('blogs.show', $post->slug) }}">{{ $post->title }}</a>
+                                    </h3>
+                                    <p>{!! Str::limit($post->content, 80) !!}</p>
+                                    <div class="d-flex align-items-center">
+                                        <span
+                                            class="fs-sm text-body-secondary">{{ $post->created_at->diffForHumans() }}</span>
+                                        <span class="fs-xs opacity-20 mx-3">|</span>
+                                        <a class="badge text-nav fs-xs border" href="#">{{ $post->category }}</a>
+                                    </div>
+                                </div>
+                            </article>
+                        @endforeach
                     </div>
-            </div>
-            @endforeach
-
-            <!-- Pagination (Bullets) -->
-            <div
-                class="swiper-pagination position-relative bottom-0 pt-1 mt-4 d-lg-none swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal">
-                <span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button"
-                    aria-label="Go to slide 1" aria-current="true"></span><span class="swiper-pagination-bullet"
-                    tabindex="0" role="button" aria-label="Go to slide 2"></span>
-            </div>
-            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+                </div>
+            @endif
         </div>
-
-
     </section>
+
+
+
 @endsection

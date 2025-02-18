@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title', $post->formatted_title)
 @section('content')
     <section class="container pt-5 mt-5">
         <!-- Breadcrumb-->
@@ -6,7 +7,7 @@
             <ol class="pt-lg-3 pb-lg-4 pb-2 breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('blogs.index') }}">Blog</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{ $post->title }}</li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $post->formatted_title }}</li>
             </ol>
         </nav>
 
@@ -14,7 +15,7 @@
             <div class="col-lg-9 col-xl-8 pe-lg-4 pe-xl-0">
 
                 <!-- Post title + post meta -->
-                <h1 class="pb-2 pb-lg-3">{{ $post->title }}</h1>
+                <h1 class="pb-2 pb-lg-3">{{ $post->formatted_title }}</h1>
                 <div class="d-flex flex-wrap align-items-center justify-content-between border-bottom mb-4">
                     <div class="d-flex align-items-center mb-4 me-4">
                         <span class="fs-sm me-2">By:</span>
@@ -49,7 +50,7 @@
                 </div>
 
                 <!-- Post content -->
-                <p class="fs-lg pt-2 pt-sm-3">{{ $post->content }}</p>
+                <p class="fs-lg pt-2 pt-sm-3">{!! $post->content !!}</p>
 
                 <!-- Tags -->
                 <div class="d-flex flex-wrap pb-5 pt-3 pt-md-4 pt-xl-5 mt-xl-n2">
@@ -70,9 +71,7 @@
                         <div class="d-md-flex w-100 ps-4">
                             <div style="max-width: 26rem;">
                                 <h3 class="h5 mb-2">{{ $post->user->name }}</h3>
-                                <p class="fs-sm mb-0">Porta nisl a ultrices ut libero id. Gravida mi neque, tristique justo,
-                                    et pharetra laoreet nulla est nulla cras ac arcu sed mattis tristique convallis suspen
-                                    enim blandit massa cursus augue dui mattis morbi velit semper nunc at etiam lacinia.</p>
+                                <p class="fs-sm mb-0">{{ $bio }}</p>
                             </div>
                             <div class="pt-4 pt-md-0 ps-md-4 ms-md-auto">
                                 <h3 class="h5">Share post:</h3>
@@ -115,16 +114,17 @@
 
                         <!-- Search box -->
                         <div class="position-relative mb-4 mb-lg-5">
-                            <i class="ai-search position-absolute top-50 start-0 translate-middle-y ms-3"></i>
-                            <input class="form-control ps-5" type="search" placeholder="Enter keyword">
+                            @include('home.blog.search')
                         </div>
+
 
                         <!-- Popular posts -->
                         <h4 class="pt-1 pt-lg-0 mt-lg-n2">Most popular:</h4>
                         <div class="mb-lg-5 mb-4">
                             @foreach ($recentPosts as $recentPost)
                                 <article class="position-relative pb-2 mb-3 mb-lg-4">
-                                    <img class="rounded-5" src="{{ $recentPost->cover }}" alt="Post image">
+                                    <img class="rounded-5" src="{{ asset('assets/' . $recentPost->cover) }}"
+                                        alt="Post image">
                                     <h5 class="h6 mt-3 mb-0">
                                         <a class="stretched-link"
                                             href="{{ route('blogs.show', $recentPost->slug) }}">{{ $recentPost->title }}</a>
@@ -163,8 +163,7 @@
         </div>
     </section>
 
-
-
+    @include('home.blog.related', ['recentPosts' => $recentPosts])
 
     <button class="d-lg-none btn btn-sm fs-sm btn-primary w-100 rounded-0 fixed-bottom" type="button"
         data-bs-toggle="offcanvas" data-bs-target="#sidebar">
@@ -284,6 +283,7 @@
             });
         });
     </script>
+
 
 
     <script src="/js/swiper.js"></script>

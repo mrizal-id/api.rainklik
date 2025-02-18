@@ -6,6 +6,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class PostController extends Controller
 {
@@ -14,12 +15,32 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::all();
+        if ($request->ajax()) {
+            $query = $request->input('query');
 
+            $posts = Post::when($query, function ($q) use ($query) {
+                return $q->where('title', 'LIKE', "%{$query}%")
+                    ->orWhere('content', 'LIKE', "%{$query}%");
+            })
+                ->latest()
+                ->take(5)
+                ->get(['title', 'slug', 'cover', 'created_at']);
+
+            // Format created_at dengan Carbon sebelum dikirim ke frontend
+            $posts->each(function ($post) {
+                $post->created_at = Carbon::parse($post->created_at)->diffForHumans();
+            });
+            return response()->json($posts);
+        }
+
+        $posts = Post::latest()->take(5)->get(['title', 'cover', 'content', 'slug']);
         return view('home.blog.index', compact('posts'));
     }
+
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -82,23 +103,33 @@ class PostController extends Controller
     public function show($slug)
     {
         $post = Post::where('slug', $slug)->firstOrFail();
-
         $post->tags = json_decode($post->tags, true);
+        $post->created_at = Carbon::parse($post->created_at)->diffForHumans(); // Tambahkan ini
 
         $recentPosts = Post::where('category', $post->category)
             ->latest()
             ->take(4)
-            ->get();
+            ->get()
+            ->map(function ($post) {
+                $post->created_at = Carbon::parse($post->created_at)->diffForHumans();
+                return $post;
+            });
 
         $relevantTopics = Post::where('slug', '!=', $slug)
             ->whereJsonContains('tags', $post->tags)
             ->latest()
             ->take(4)
-            ->get();
+            ->get()
+            ->map(function ($post) {
+                $post->created_at = Carbon::parse($post->created_at)->diffForHumans();
+                return $post;
+            });
 
-        // Mengirim data post, recent posts, dan relevant topics ke view
-        return view('home.blog.show', compact('post', 'recentPosts', 'relevantTopics'));
+        $bio = 'Pekerjaan Bagi saya bukan soal uang';
+
+        return view('home.blog.show', compact('post', 'recentPosts', 'relevantTopics', 'bio'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

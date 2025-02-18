@@ -28,7 +28,14 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
-
+    public function setTitleAttribute($value)
+    {
+        $this->attributes['title'] = ucwords($value);
+    }
+    public function getFormattedTitleAttribute()
+    {
+        return ucwords($this->attributes['title']);
+    }
     // Mutator untuk otomatis membuat slug berdasarkan title
     public static function boot()
     {

@@ -34,10 +34,10 @@
                     <a class="nav-link d-flex align-items-center p-0" href="#" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         <img class="border rounded-circle" src="/images/avatar.jpg" width="48"
-                            alt="{{ Auth::user()->first_name }} ">
+                            alt="{{ Auth::user()->name }} ">
                         <div class="ps-2">
                             <div class="fs-xs lh-1 opacity-60">Hello,</div>
-                            <div class="fs-sm dropdown-toggle">{{ Auth::user()->first_name }} </div>
+                            <div class="fs-sm dropdown-toggle">{{ Auth::user()->name }} </div>
                         </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end my-1">

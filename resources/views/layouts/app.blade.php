@@ -373,7 +373,7 @@
         <!-- Benefit -->
         @include('partials.benefit')
         <!-- Footer-->
-        @include('partials.footer')
+        @include('partials.footer2')
     </main>
 
     <!-- Back to top button -->

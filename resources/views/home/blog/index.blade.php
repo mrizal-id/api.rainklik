@@ -37,7 +37,7 @@
                             <h2 class="h3 pt-3 mt-2 mt-md-3">
                                 <a href="{{ route('blogs.show', $post->slug) }}">{{ $post->title }}</a>
                             </h2>
-                            <p>{{ $post->content }}</p>
+                            <p>{!! $post->content !!}</p>
                             <div class="d-flex flex-wrap align-items-center pt-1 mt-n2">
                                 <a class="nav-link text-body-secondary fs-sm fw-normal p-0 mt-2 me-3" href="#">
                                     6
@@ -102,8 +102,7 @@
 
                         <!-- Search box -->
                         <div class="position-relative mb-4 mb-lg-5">
-                            <i class="ai-search position-absolute top-50 start-0 translate-middle-y ms-3"></i>
-                            <input class="form-control ps-5" type="search" placeholder="Enter keyword">
+                            @include('home.blog.search')
                         </div>
 
                         <!-- Category links -->

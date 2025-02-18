@@ -61,3 +61,35 @@
         </section>
     </div>
 @endsection
+@push('scripts')
+    <script src="{{ asset('vendor/tinymce/tinymce.min.js') }}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            tinymce.init({
+                selector: '#content',
+                height: 500,
+                plugins: 'advlist autolink lists link charmap preview anchor',
+                toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent',
+                menubar: 'file edit view insert format tools table help',
+                branding: false,
+                license_key: 'gpl',
+                setup: function(editor) {
+                    editor.on('change', function() {
+                        tinymce.triggerSave();
+                    });
+                }
+            });
+
+            document.querySelector("form").addEventListener("submit", function(event) {
+                tinymce.triggerSave();
+                let content = document.getElementById('content');
+
+                if (!content.value.trim()) {
+                    content.style.display = "block";
+                    content.focus();
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+@endpush
