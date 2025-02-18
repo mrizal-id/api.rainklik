@@ -43,3 +43,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/post/{post}', [PostController::class, 'edit'])->name('dashboard.posts.edit');
     Route::put('/dashboard/post/{post}', [PostController::class, 'update'])->name('dashboard.posts.update');
 });
+
+
+//create symlink
+
+
+use Illuminate\Support\Facades\Artisan;
+
+Route::get('/storage-link', function () {
+    Artisan::call('storage:link');
+    return 'Symlink storage berhasil dibuat!';
+});
