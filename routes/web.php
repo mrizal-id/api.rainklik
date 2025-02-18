@@ -15,8 +15,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     if (app()->environment('local')) {
-        return view('home');
+        return view('home.index');
     } else {
         return redirect('https://rainklik.com', 301);
     }
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
