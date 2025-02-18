@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CategoryController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,3 +45,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/post/{post}', [PostController::class, 'edit'])->name('dashboard.posts.edit');
     Route::put('/dashboard/post/{post}', [PostController::class, 'update'])->name('dashboard.posts.update');
 });
+
+
+Route::resource('/dashboard/categories', CategoryController::class)->middleware('auth');
