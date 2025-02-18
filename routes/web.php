@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     if (app()->environment('local')) {
-        return view('welcome');
+        return view('home');
     } else {
         return redirect('https://rainklik.com', 301);
     }

@@ -19,7 +19,10 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => [
+        'https://rainklik.com',
+        'https://api.rainklik.com',
+    ],
 
     'allowed_origins_patterns' => [],
 
