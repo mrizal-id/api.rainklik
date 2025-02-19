@@ -1,0 +1,63 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+
+class PostSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        DB::table('posts')->insert([
+            [
+                'title' => 'Tips Memilih Laptop Gaming Terbaik untuk Kebutuhan Anda',
+                'slug' => Str::slug('Tips Memilih Laptop Gaming Terbaik untuk Kebutuhan Anda'),
+                'content' => 'Dalam memilih laptop gaming, ada beberapa faktor penting yang perlu dipertimbangkan. Mulai dari spesifikasi hardware, ukuran layar, hingga fitur tambahan seperti sistem pendingin dan keyboard RGB. Artikel ini akan memberikan panduan lengkap untuk membantu Anda memilih laptop gaming yang sesuai dengan kebutuhan dan budget Anda.',
+                'cover' => 'posts/laptop-gaming-tips.jpg',
+                'category' => 'Tips & Panduan',
+                'tags' => 'laptop, gaming, tips, panduan',
+                'user_id' => 1, // Asumsi user ID 1 ada
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'title' => 'Tren Fashion Terbaru: Kaos Polos yang Kembali Populer',
+                'slug' => Str::slug('Tren Fashion Terbaru: Kaos Polos yang Kembali Populer'),
+                'content' => 'Kaos polos kembali menjadi tren fashion yang digemari banyak orang. Dengan berbagai pilihan warna dan bahan, kaos polos dapat dipadukan dengan berbagai outfit untuk menciptakan tampilan yang stylish dan casual. Artikel ini akan membahas tren fashion terbaru seputar kaos polos dan memberikan inspirasi outfit yang bisa Anda coba.',
+                'cover' => 'posts/kaos-polos-tren.jpg',
+                'category' => 'Fashion',
+                'tags' => 'fashion, kaos, tren, polos',
+                'user_id' => 1, // Asumsi user ID 1 ada
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'title' => 'Panduan Lengkap Memulai Belajar Laravel untuk Pemula',
+                'slug' => Str::slug('Panduan Lengkap Memulai Belajar Laravel untuk Pemula'),
+                'content' => 'Laravel adalah framework PHP yang populer dan banyak digunakan untuk membangun aplikasi web. Artikel ini akan memberikan panduan lengkap bagi pemula yang ingin memulai belajar Laravel. Mulai dari instalasi, konsep dasar, hingga contoh aplikasi sederhana.',
+                'cover' => 'posts/laravel-tutorial.jpg',
+                'category' => 'Tutorial',
+                'tags' => 'laravel, tutorial, php, web development',
+                'user_id' => 1, // Asumsi user ID 1 ada
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'title' => 'Promo Spesial Rainklik: Diskon Hingga 50% untuk Produk Elektronik',
+                'slug' => Str::slug('Promo Spesial Rainklik: Diskon Hingga 50% untuk Produk Elektronik'),
+                'content' => 'Rainklik sedang mengadakan promo spesial untuk produk elektronik. Dapatkan diskon hingga 50% untuk berbagai produk seperti laptop, smartphone, dan aksesoris elektronik lainnya. Jangan lewatkan kesempatan ini untuk mendapatkan produk impian Anda dengan harga yang lebih terjangkau.',
+                'cover' => 'posts/promo-elektronik.jpg',
+                'category' => 'Promo',
+                'tags' => 'promo, diskon, elektronik, rainklik',
+                'user_id' => 1, // Asumsi user ID 1 ada
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+        ]);
+    }
+}

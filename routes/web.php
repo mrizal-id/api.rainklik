@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ShippingMethodController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -48,3 +51,6 @@ Route::middleware('auth')->group(function () {
 
 
 Route::resource('/dashboard/categories', CategoryController::class)->middleware('auth');
+
+Route::resource('/dashboard/products', ProductController::class);
+Route::resource('/dashboard/shippings', ShippingMethodController::class);
