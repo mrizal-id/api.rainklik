@@ -33,39 +33,8 @@
                 </div>
             </div>
 
-            <div class="mb-4">
-                <div class="position-relative password-toggle">
-                    <i class="ai-lock-closed fs-lg position-absolute top-50 start-0 translate-middle-y ms-3"></i>
-                    <input class="form-control form-control-lg ps-5 @error('password') is-invalid @enderror" type="password"
-                        name="password" placeholder="Kata sandi" required>
-                    <label class="password-toggle-btn" aria-label="Tampilkan/sembunyikan kata sandi">
-                        <input class="password-toggle-check" type="checkbox">
-                        <span class="password-toggle-indicator"></span>
-                    </label>
-                    @error('password')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-            </div>
-
-            <div class="mb-4">
-                <div class="position-relative password-toggle">
-                    <i class="ai-lock-closed fs-lg position-absolute top-50 start-0 translate-middle-y ms-3"></i>
-                    <input class="form-control form-control-lg ps-5 @error('password_confirmation') is-invalid @enderror"
-                        type="password" name="password_confirmation" placeholder="Konfirmasi kata sandi" required>
-                    <label class="password-toggle-btn" aria-label="Tampilkan/sembunyikan kata sandi">
-                        <input class="password-toggle-check" type="checkbox">
-                        <span class="password-toggle-indicator"></span>
-                    </label>
-                    @error('password_confirmation')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-            </div>
+            <x-password-input name="password" />
+            <x-password-input name="password_confirmation" />
 
             <button class="btn btn-lg btn-primary w-100 mb-4" type="submit">Buat Akun</button>
 
@@ -87,5 +56,14 @@
 @endsection
 
 @push('scripts')
-    <script src="/js/main.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll(".password-toggle-btn").forEach(button => {
+                button.addEventListener("click", function() {
+                    let input = this.previousElementSibling;
+                    input.type = input.type === "password" ? "text" : "password";
+                });
+            });
+        });
+    </script>
 @endpush

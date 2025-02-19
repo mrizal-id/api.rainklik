@@ -194,12 +194,21 @@
         </div>
     </section>
 
-    @include('home.blog.related', ['recentPosts' => $recentPosts])
+    {{-- @include('home.blog.related', ['recentPosts' => $recentPosts]) --}}
 
-    <button class="d-lg-none btn btn-sm fs-sm btn-primary w-100 rounded-0 fixed-bottom" type="button"
-        data-bs-toggle="offcanvas" data-bs-target="#sidebar">
-        <i class="ai-layout-column me-2"></i>
-        Menu
+    <button id="sidebarToggleButton" class="btn btn-primary rounded-circle position-fixed d-lg-none" type="button"
+        data-bs-toggle="offcanvas" data-bs-target="#sidebar"
+        style="width: 60px;
+           height: 60px;
+           display: none;
+           align-items: center;
+           justify-content: center;
+           z-index: 1000;
+           bottom: 20px;
+           left: 20px;
+           border: none;
+           box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);">
+        <i class="ai-layout-column fs-3"></i>
     </button>
 
 
@@ -345,6 +354,20 @@
             });
         });
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var button = document.getElementById('sidebarToggleButton');
+            var scrollTimeout;
 
+            window.addEventListener('scroll', function() {
+                clearTimeout(scrollTimeout);
+                button.style.display = 'none'; // Sembunyikan saat scroll
+
+                scrollTimeout = setTimeout(function() {
+                    button.style.display = 'flex'; // Tampilkan setelah jeda
+                }, 1000); // 1 detik jeda
+            });
+        });
+    </script>
     <script src="/js/swiper.js"></script>
 @endpush

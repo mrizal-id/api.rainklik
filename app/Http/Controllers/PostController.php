@@ -28,23 +28,23 @@ class PostController extends Controller
                 ->take(5)
                 ->get(['title', 'slug', 'cover', 'created_at']);
 
-            // Format created_at dan tambahkan share_count
+            // Format created_at dan tambahkan share_count langsung di query
             $posts->each(function ($post) {
-                $post->created_at = Carbon::parse($post->created_at)->diffForHumans();
+                $post->created_at_human = Carbon::parse($post->created_at)->diffForHumans();
                 $post->share_count = $post->shareCount();
-                $post->formatted_share_count = $this->formatNumber($post->share_count); // Tambahkan ini
+                $post->formatted_share_count = $this->formatNumber($post->share_count);
             });
 
             return response()->json($posts);
         }
 
-        $posts = Post::latest()->take(5)->get(['title', 'cover', 'content', 'slug']);
+        $posts = Post::latest()->take(5)->get(['title', 'cover', 'content', 'slug', 'created_at']);
 
-        // Tambahkan share_count dan formatted_share_count ke setiap item di koleksi
-        $posts = $posts->map(function ($post) {
+        // Format created_at dan tambahkan share_count langsung di query
+        $posts->each(function ($post) {
+            $post->created_at_human = Carbon::parse($post->created_at)->diffForHumans();
             $post->share_count = $post->shareCount();
-            $post->formatted_share_count = $this->formatNumber($post->share_count); // Tambahkan ini
-            return $post;
+            $post->formatted_share_count = $this->formatNumber($post->share_count);
         });
 
         return view('home.blog.index', compact('posts'));
@@ -125,42 +125,33 @@ class PostController extends Controller
     public function show($slug)
     {
         $post = Post::where('slug', $slug)->firstOrFail();
-        $post->created_at = Carbon::parse($post->created_at)->diffForHumans(); // Tambahkan ini
-
-        $recentPosts = Post::where('category', $post->category)
-            ->latest()
-            ->take(4)
-            ->get()
-            ->map(function ($post) {
-                $post->created_at = Carbon::parse($post->created_at)->diffForHumans();
-                return $post;
-            });
-
-
+        $post->created_at_human = Carbon::parse($post->created_at)->diffForHumans();
         $post->share_count = $post->shareCount();
 
-        // Perbaikan logic relevantTopics
-        $relevantTopics = Post::where('slug', '!=', $slug)
-            ->where(function ($query) use ($post) {
-                if ($post->tags) {
-                    foreach ($post->tags as $tag) {
-                        $query->orWhereJsonContains('tags', $tag);
-                    }
-                }
-            })
+        $recentPosts = Post::where('category', $post->category)
+            ->where('slug', '!=', $slug) // Tambahkan ini
             ->latest()
             ->take(4)
-            ->get()
-            ->map(function ($post) {
-                $post->created_at = Carbon::parse($post->created_at)->diffForHumans();
-                return $post;
-            });
+            ->get();
+
+        $recentPosts->each(function ($recentPost) {
+            $recentPost->created_at_human = Carbon::parse($recentPost->created_at)->diffForHumans();
+        });
+
+        $relevantTopics = Post::where('slug', '!=', $slug)
+            ->whereJsonContains('tags', $post->tags[0] ?? null) // Asumsi tag pertama relevan
+            ->latest()
+            ->take(4)
+            ->get();
+
+        $relevantTopics->each(function ($relevantTopic) {
+            $relevantTopic->created_at_human = Carbon::parse($relevantTopic->created_at)->diffForHumans();
+        });
 
         $bio = 'Pekerjaan Bagi saya bukan soal uang';
 
         return view('home.blog.show', compact('post', 'recentPosts', 'relevantTopics', 'bio'));
     }
-
 
     /**
      * Show the form for editing the specified resource.

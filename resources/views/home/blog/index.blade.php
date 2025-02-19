@@ -12,11 +12,11 @@
         <section class="container pt-5 pb-4 pb-lg-0 my-md-2 my-lg-5">
             <div class="row pt-5 pb-4 pb-lg-5 mb-2 mt-1 mt-sm-2 my-xl-3">
                 <div class="col-md-7">
-                    <h1 class="display-3 fw-medium text-uppercase mb-0">Blog about life, work and business</h1>
+                    <h1 class="display-3 fw-medium text-uppercase mb-0">Blog Tentang Produk dan Gaya Hidup</h1>
                 </div>
                 <div class="col-md-5 col-lg-4 offset-lg-1 pt-3 pt-md-2">
-                    <p class="mb-0">A lot of useful information about health, beauty, travel and life in our blog. Simple
-                        and accessible about all important aspects of life.</p>
+                    <p class="mb-0">Temukan informasi bermanfaat tentang produk terbaru, tips gaya hidup, dan inspirasi
+                        dari toko kami. Kami berbagi pengetahuan agar Anda dapat membuat keputusan terbaik.</p>
                 </div>
             </div>
             <hr>
@@ -28,35 +28,7 @@
 
                 <div class="masonry-grid mb-2 mb-md-4 pb-lg-3 shuffle" data-columns="2" style="position: relative;">
                     @foreach ($posts as $post)
-                        <article class="pb-5 pt-sm-1 mb-lg-3 mb-xl-4">
-                            <a href="{{ route('blogs.show', $post->slug) }}">
-                                <img class="rounded-5" src="{{ asset('assets/' . $post->cover) }}" alt="Image">
-                            </a>
-                            <h2 class="h3 pt-3 mt-2 mt-md-3">
-                                <a href="{{ route('blogs.show', $post->slug) }}">{{ $post->title }}</a>
-                            </h2>
-                            <p>{!! $post->content !!}</p>
-                            <div class="d-flex flex-wrap align-items-center pt-1 mt-n2">
-                                <a class="nav-link text-body-secondary fs-sm fw-normal p-0 mt-2 me-3" href="#">
-                                    {{ $post->formatted_share_count }} <i class="ai-share fs-lg ms-1"></i>
-                                </a>
-                                <a class="nav-link text-body-secondary fs-sm fw-normal d-flex align-items-end p-0 mt-2"
-                                    href="#">
-                                    {{-- Tampilkan jumlah komentar --}}
-                                    {{-- @if ($post->comments)
-                                        {{ $post->comments->count() }}
-                                    @endif --}}
-                                    {{-- Atau --}}
-                                    {{-- {{ $post->comments()->count() }} --}}
-                                    {{-- <i class="ai-message fs-lg ms-1"></i> --}}
-                                </a>
-
-                                <span class="fs-xs opacity-20 mt-2 mx-3">|</span>
-                                <span class="fs-sm text-body-secondary mt-2">{{ $post->created_at }}</span>
-                                <span class="fs-xs opacity-20 mt-2 mx-3">|</span>
-                                <a class="badge text-nav fs-xs border mt-2" href="#">Fashion</a>
-                            </div>
-                        </article>
+                        <x-blog-post :post="$post" />
                     @endforeach
                 </div>
 
@@ -171,9 +143,9 @@
         </div>
     </div>
     <!-- Sidebar toggle button -->
-    <button class="d-lg-none btn btn-sm fs-sm btn-primary w-100 rounded-0 fixed-bottom" type="button"
-        data-bs-toggle="offcanvas" data-bs-target="#sidebarBlog">
-        <i class="ai-layout-column me-2"></i>
-        Sidebar
+    <button class="btn btn-success rounded-circle position-fixed bottom-3 end-3 d-lg-none" type="button"
+        data-bs-toggle="offcanvas" data-bs-target="#sidebarBlog"
+        style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; z-index: 1000;">
+        <i class="ai-layout-column fs-3"></i>
     </button>
 @endsection

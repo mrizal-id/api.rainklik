@@ -4,24 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Product; // Tambahkan use statement untuk model Product
 
 class HomeController extends Controller
 {
-
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-
     public function index()
     {
         $posts = Post::latest()->take(5)->get(['title', 'cover', 'content', 'slug', 'created_at', 'category']);
 
-        $featured = $posts->first(); // Ambil post pertama sebagai featured
-        $recentPosts = $posts->skip(1); // Sisanya sebagai recent posts
+        $featured = $posts->first();
+        $recentPosts = $posts->skip(1);
 
-        return view('home.index', compact('featured', 'recentPosts'));
+        // Ambil data produk
+        $products = Product::all(); // Atau query lain untuk mengambil produk
+
+        // Kirim data produk ke view
+        return view('home.index', compact('featured', 'recentPosts', 'products'));
     }
 }
