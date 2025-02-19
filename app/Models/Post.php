@@ -28,6 +28,17 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function shares()
+    {
+        return $this->hasMany(Share::class);
+    }
+
+    public function shareCount()
+    {
+        return $this->shares()->count();
+    }
+
     public function setTitleAttribute($value)
     {
         $this->attributes['title'] = ucwords($value);

@@ -14,15 +14,15 @@ return new class extends Migration
     public function up()
     {
         Schema::create('posts', function (Blueprint $table) {
-            $table->id(); // Primary key ID
+            $table->id();
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('content');
             $table->string('cover');
             $table->string('category');
-            $table->string('tags')->nullable(); // Kolom untuk tags, bisa null jika tidak ada
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Kolom untuk ID user yang mengirim, foreign key
-            $table->timestamps(); // Kolom created_at dan updated_at
+            $table->json('tags')->nullable(); // Ubah ke json
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

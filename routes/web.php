@@ -5,6 +5,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShippingMethodController;
+use App\Http\Controllers\ShareController;
 
 
 /*
@@ -54,3 +55,17 @@ Route::resource('/dashboard/categories', CategoryController::class)->middleware(
 
 Route::resource('/dashboard/products', ProductController::class);
 Route::resource('/dashboard/shippings', ShippingMethodController::class);
+
+
+
+
+
+
+
+
+
+
+
+
+
+Route::post('/posts/{post}/shares', [ShareController::class, 'store'])->name('shares.store');

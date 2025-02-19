@@ -1,5 +1,12 @@
 @extends('layouts.app')
 @section('title', $post->formatted_title)
+@section('meta')
+    <meta property="og:title" content="{{ $post->title }}">
+    <meta property="og:description" content="{{ substr(strip_tags($post->content), 0, 200) }}">
+    <meta property="og:image" content="{{ asset('assets/' . $post->cover) }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:type" content="article">
+@endsection
 @section('content')
     <section class="container pt-5 mt-5">
         <!-- Breadcrumb-->
@@ -29,20 +36,30 @@
                     <div class="d-flex align-items-center mb-4">
                         <span class="fs-sm me-2">Share post:</span>
                         <div class="d-flex">
-                            <a class="nav-link p-2 me-2" href="#" data-bs-toggle="tooltip" data-bs-placement="top"
-                                aria-label="Instagram" data-bs-original-title="Instagram">
+                            <a class="nav-link p-2 me-2" href="https://www.instagram.com/?url={{ urlencode($post->title) }}"
+                                target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Instagram"
+                                data-bs-original-title="Instagram">
                                 <i class="ai-instagram"></i>
                             </a>
-                            <a class="nav-link p-2 me-2" href="#" data-bs-toggle="tooltip" data-bs-placement="top"
-                                aria-label="Facebook" data-bs-original-title="Facebook">
+
+                            <a class="nav-link p-2 me-2"
+                                href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}"
+                                target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Facebook"
+                                data-bs-original-title="Facebook">
                                 <i class="ai-facebook"></i>
                             </a>
-                            <a class="nav-link p-2 me-2" href="#" data-bs-toggle="tooltip" data-bs-placement="top"
-                                aria-label="Telegram" data-bs-original-title="Telegram">
-                                <i class="ai-whatsapp "></i>
+
+                            <a class="nav-link p-2 me-2"
+                                href="https://t.me/share/url?url={{ urlencode(url()->current()) }}&text={{ urlencode($post->title) }}"
+                                target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Telegram"
+                                data-bs-original-title="Telegram">
+                                <i class="ai-whatsapp"></i>
                             </a>
-                            <a class="nav-link p-2" href="#" data-bs-toggle="tooltip" data-bs-placement="top"
-                                aria-label="X" data-bs-original-title="X">
+
+                            <a class="nav-link p-2"
+                                href="https://twitter.com/intent/tweet?url={{ urlencode(url()->current()) }}&text={{ urlencode($post->title) }}"
+                                target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="X"
+                                data-bs-original-title="X">
                                 <i class="ai-x"></i>
                             </a>
                         </div>
@@ -56,11 +73,15 @@
                 <div class="d-flex flex-wrap pb-5 pt-3 pt-md-4 pt-xl-5 mt-xl-n2">
                     <h3 class="h6 py-1 mb-0 me-4">Relevant tags:</h3>
 
-                    @foreach ($post->tags as $tag)
-                        <a class="nav-link fs-sm py-1 px-0 me-3" href="#">
-                            <span class="text-primary">#</span>{{ $tag }}
-                        </a>
-                    @endforeach
+                    @if ($post->tags)
+                        @foreach ($post->tags as $tag)
+                            <a class="nav-link fs-sm py-1 px-0 me-3" href="#">
+                                <span class="text-primary">#</span>{{ $tag }}
+                            </a>
+                        @endforeach
+                    @else
+                        <p>No tags available.</p>
+                    @endif
                 </div>
 
                 <!-- Author widget -->
@@ -76,21 +97,31 @@
                             <div class="pt-4 pt-md-0 ps-md-4 ms-md-auto">
                                 <h3 class="h5">Share post:</h3>
                                 <div class="d-flex">
-                                    <a class="nav-link p-2 me-2" href="#" data-bs-toggle="tooltip"
-                                        data-bs-placement="bottom" aria-label="Instagram"
+                                    <a class="nav-link p-2 me-2"
+                                        href="https://www.instagram.com/?url={{ urlencode($post->title) }}" target="_blank"
+                                        data-bs-toggle="tooltip" data-bs-placement="bottom" aria-label="Instagram"
                                         data-bs-original-title="Instagram">
                                         <i class="ai-instagram"></i>
                                     </a>
-                                    <a class="nav-link p-2 me-2" href="#" data-bs-toggle="tooltip"
-                                        data-bs-placement="bottom" aria-label="Facebook" data-bs-original-title="Facebook">
+
+                                    <a class="nav-link p-2 me-2"
+                                        href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}"
+                                        target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                        aria-label="Facebook" data-bs-original-title="Facebook">
                                         <i class="ai-facebook"></i>
                                     </a>
-                                    <a class="nav-link p-2 me-2" href="#" data-bs-toggle="tooltip"
-                                        data-bs-placement="bottom" aria-label="Telegram" data-bs-original-title="Telegram">
+
+                                    <a class="nav-link p-2 me-2"
+                                        href="https://t.me/share/url?url={{ urlencode(url()->current()) }}&text={{ urlencode($post->title) }}"
+                                        target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                        aria-label="Telegram" data-bs-original-title="Telegram">
                                         <i class="ai-telegram fs-sm"></i>
                                     </a>
-                                    <a class="nav-link p-2" href="#" data-bs-toggle="tooltip"
-                                        data-bs-placement="bottom" aria-label="X" data-bs-original-title="X">
+
+                                    <a class="nav-link p-2"
+                                        href="https://twitter.com/intent/tweet?url={{ urlencode(url()->current()) }}&text={{ urlencode($post->title) }}"
+                                        target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                                        aria-label="X" data-bs-original-title="X">
                                         <i class="ai-x"></i>
                                     </a>
                                 </div>
@@ -283,8 +314,37 @@
             });
         });
     </script>
+    <script>
+        document.querySelectorAll('.share-link').forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
 
+                const platform = this.dataset.platform;
+                const postId = this.dataset.postId;
+                const url = this.href;
 
+                fetch(`/posts/${postId}/shares`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            platform: platform
+                        })
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            window.open(url,
+                                '_blank');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            });
+        });
+    </script>
 
     <script src="/js/swiper.js"></script>
 @endpush

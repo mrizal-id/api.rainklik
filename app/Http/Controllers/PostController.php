@@ -28,17 +28,39 @@ class PostController extends Controller
                 ->take(5)
                 ->get(['title', 'slug', 'cover', 'created_at']);
 
-            // Format created_at dengan Carbon sebelum dikirim ke frontend
+            // Format created_at dan tambahkan share_count
             $posts->each(function ($post) {
                 $post->created_at = Carbon::parse($post->created_at)->diffForHumans();
+                $post->share_count = $post->shareCount();
+                $post->formatted_share_count = $this->formatNumber($post->share_count); // Tambahkan ini
             });
+
             return response()->json($posts);
         }
 
         $posts = Post::latest()->take(5)->get(['title', 'cover', 'content', 'slug']);
+
+        // Tambahkan share_count dan formatted_share_count ke setiap item di koleksi
+        $posts = $posts->map(function ($post) {
+            $post->share_count = $post->shareCount();
+            $post->formatted_share_count = $this->formatNumber($post->share_count); // Tambahkan ini
+            return $post;
+        });
+
         return view('home.blog.index', compact('posts'));
     }
 
+    // Fungsi formatNumber()
+    private function formatNumber($number)
+    {
+        if ($number >= 1000000) {
+            return round($number / 1000000, 1) . 'm';
+        } elseif ($number >= 1000) {
+            return round($number / 1000, 1) . 'k';
+        } else {
+            return $number;
+        }
+    }
 
 
 
@@ -103,7 +125,6 @@ class PostController extends Controller
     public function show($slug)
     {
         $post = Post::where('slug', $slug)->firstOrFail();
-        $post->tags = json_decode($post->tags, true);
         $post->created_at = Carbon::parse($post->created_at)->diffForHumans(); // Tambahkan ini
 
         $recentPosts = Post::where('category', $post->category)
@@ -115,8 +136,18 @@ class PostController extends Controller
                 return $post;
             });
 
+
+        $post->share_count = $post->shareCount();
+
+        // Perbaikan logic relevantTopics
         $relevantTopics = Post::where('slug', '!=', $slug)
-            ->whereJsonContains('tags', $post->tags)
+            ->where(function ($query) use ($post) {
+                if ($post->tags) {
+                    foreach ($post->tags as $tag) {
+                        $query->orWhereJsonContains('tags', $tag);
+                    }
+                }
+            })
             ->latest()
             ->take(4)
             ->get()

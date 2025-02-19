@@ -43,7 +43,7 @@
     <link href="{{ asset('css/swiper.css') }}" rel="stylesheet">
     <script src="/js/theme-switcher.js"></script>
     <link rel="stylesheet" href="/icons/icons.min.css">
-
+    @yield('meta')
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
